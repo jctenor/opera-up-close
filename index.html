@@ -1,0 +1,1452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Opera Up Close</title>
+<meta name="description" content="Opera Up Close: a monthly evening of live opera and a home-cooked dinner in a vintage Chicago apartment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&display=swap">
+<style>
+/* Layout: a printed opera programme for a dinner party. Candlelit table hero, past nights, the running order, the hosts, house notes, box office. A second view holds the full photo gallery. */
+:root {
+  --paper: #F2F4F9;
+  --sheet: #FBFCFE;
+  --ink: #111A35;
+  --muted: #56607D;
+  --cobalt: #0050BA;
+  --gilt: #9C7230;
+  --rule: #D5DBE8;
+  --logo: #0050BA;
+  --field: #FFFFFF;
+  --shade: rgba(17, 26, 53, 0.06);
+
+  /* the dining room stays lamplit in both themes */
+  --room: #0E1A3A;
+  --room-ink: #F3F0E8;
+  --room-gilt: #D6AE63;
+  --scrim: rgba(8, 12, 28, 0.94);
+
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", "Times New Roman", serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.3rem;
+  --step-2: 1.75rem;
+  --step-3: clamp(2rem, 4.2vw, 2.9rem);
+  --step-4: clamp(2.4rem, 6vw, 4.2rem);
+  --measure: 62ch;
+  --wrap: 1120px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C1224; --sheet: #121A31; --ink: #E8ECF5; --muted: #A1ABC6;
+    --cobalt: #7FA6FF; --gilt: #D2A75A; --rule: #26304D; --logo: #EDEAE2; --field: #0E1529;
+    --shade: rgba(0, 0, 0, 0.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0C1224; --sheet: #121A31; --ink: #E8ECF5; --muted: #A1ABC6;
+  --cobalt: #7FA6FF; --gilt: #D2A75A; --rule: #26304D; --logo: #EDEAE2; --field: #0E1529;
+  --shade: rgba(0, 0, 0, 0.3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+a { color: var(--cobalt); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: 1.1; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+img { display: block; max-width: 100%; height: auto; }
+
+.wrap {
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) {
+  .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+}
+
+.label {
+  font-family: var(--body);
+  font-variation-settings: "wdth" 125;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gilt);
+}
+
+.logo {
+  display: block;
+  aspect-ratio: 880 / 358;
+  background: var(--logo);
+  -webkit-mask: url("logo-mask.webp") center / contain no-repeat;
+  mask: url("logo-mask.webp") center / contain no-repeat;
+  max-width: 100%;
+}
+
+/* ---------- header ---------- */
+.site-head .wrap {
+  display: flex; align-items: center;
+  gap: 12px 22px; flex-wrap: wrap;
+  padding-block: 18px;
+}
+.site-head .logo { width: 132px; }
+.nav { display: flex; gap: 6px 22px; flex-wrap: wrap; align-items: center; margin-left: auto; }
+.nav a {
+  color: var(--ink); text-decoration: none;
+  font-variation-settings: "wdth" 112; font-size: 0.9rem; font-weight: 500;
+}
+.nav a:hover, .nav a[aria-current="page"] { color: var(--cobalt); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--body); font-variation-settings: "wdth" 115;
+  font-weight: 600; font-size: 0.92rem; letter-spacing: 0.02em;
+  padding: 0.8em 1.4em; border-radius: 999px;
+  border: 1.5px solid var(--cobalt); background: var(--cobalt); color: var(--paper);
+  text-decoration: none; cursor: pointer;
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--cobalt); }
+.head-cta { padding: 0.55em 1.1em; font-size: 0.85rem; }
+.menu-btn {
+  display: none; place-items: center;
+  width: 44px; height: 44px; padding: 0;
+  border: 1px solid var(--rule); border-radius: 999px;
+  background: transparent; color: var(--ink); cursor: pointer;
+}
+.menu-btn .i-close { display: none; }
+.menu-btn[aria-expanded="true"] .i-open { display: none; }
+.menu-btn[aria-expanded="true"] .i-close { display: block; }
+@media (max-width: 859px) {
+  .head-cta { margin-left: auto; }
+  .menu-btn { display: inline-grid; }
+  .nav {
+    display: none; order: 3; flex-basis: 100%;
+    flex-direction: column; align-items: stretch; gap: 0;
+    margin-left: 0; border-top: 1px solid var(--rule);
+  }
+  .site-head.open .nav { display: flex; }
+  .nav a { padding-block: 14px; border-bottom: 1px solid var(--rule); font-size: 1rem; }
+}
+
+/* button pairs share one width on phones */
+@media (max-width: 560px) {
+  .room .ctas, .upnext-ctas { display: grid; grid-template-columns: 1fr; width: 100%; }
+  .room .ctas { max-width: 340px; }
+  .room .ctas .btn, .upnext-ctas .btn { width: 100%; }
+}
+
+/* ---------- hero: the dining room ---------- */
+.hero { padding-block: 8px 0; }
+.room {
+  background: var(--room);
+  color: var(--room-ink);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.room-copy {
+  position: relative; z-index: 1;
+  display: grid; justify-items: center; gap: 22px; text-align: center;
+  padding: clamp(36px, 6vw, 60px) clamp(20px, 6vw, 72px) 0;
+}
+.room .room-label { color: var(--room-gilt); }
+.room h1 { font-style: italic; font-weight: 400; font-size: var(--step-4); max-width: 18ch; color: var(--room-ink); }
+.room .lede { max-width: 48ch; color: color-mix(in srgb, var(--room-ink) 82%, transparent); }
+.room .ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.room .btn { background: var(--room-ink); border-color: var(--room-ink); color: var(--room); }
+.room .btn.ghost { background: transparent; color: var(--room-ink); border-color: color-mix(in srgb, var(--room-ink) 50%, transparent); }
+.tablescape { display: block; width: 100%; height: auto; margin-top: 8px; }
+@media (max-width: 640px) { .tablescape { height: 300px; } }
+.flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 2.6s ease-in-out infinite; }
+.flame.b { animation-duration: 3.1s; animation-delay: -.8s; }
+.flame.c { animation-duration: 2.2s; animation-delay: -1.4s; }
+@keyframes flicker {
+  0%, 100% { transform: scale(1, 1) rotate(0deg); }
+  30% { transform: scale(.94, 1.06) rotate(-2deg); }
+  60% { transform: scale(1.04, .95) rotate(1.5deg); }
+}
+.glow { animation: breathe 4s ease-in-out infinite; }
+@keyframes breathe { 50% { opacity: .75; } }
+
+.facts {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px;
+  padding-block: 22px 0; color: var(--muted);
+}
+.facts span { font-variation-settings: "wdth" 118; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.facts span + span::before { content: "·"; margin-right: 28px; color: var(--gilt); }
+@media (max-width: 560px) { .facts span + span::before { display: none; } }
+
+/* ---------- sections ---------- */
+section { padding-block: clamp(64px, 10vw, 120px) 0; }
+.section-head { display: grid; gap: 14px; margin-bottom: 40px; max-width: var(--measure); }
+.section-head h2 { font-size: var(--step-4); }
+.section-head p { color: var(--muted); }
+
+.overture { display: grid; gap: 24px; grid-template-columns: 1fr; align-items: start; }
+.overture blockquote {
+  margin: 0; font-family: var(--display); font-weight: 400;
+  font-size: var(--step-3); line-height: 1.2; text-wrap: balance;
+}
+.overture blockquote em { color: var(--cobalt); }
+.overture .copy { display: grid; gap: 16px; max-width: var(--measure); color: var(--muted); }
+@media (min-width: 880px) {
+  .overture { grid-template-columns: 1.15fr 1fr; gap: 64px; }
+  .overture .copy { padding-top: 10px; }
+}
+
+.overture-q { display: grid; gap: 16px; }
+
+/* ---------- up next ---------- */
+#next { padding-block-start: clamp(48px, 7vw, 80px); }
+.upnext {
+  position: relative;
+  display: grid; grid-template-columns: 1fr; gap: 24px 48px;
+  background: var(--sheet); border: 1px solid var(--rule);
+  padding: clamp(24px, 4.5vw, 52px);
+}
+.upnext::before {
+  content: ""; position: absolute; inset: 8px; pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--gilt) 45%, transparent);
+}
+.upnext-date { display: grid; gap: 4px; align-content: start; }
+.upnext-date .month { font-family: var(--display); font-style: italic; font-size: var(--step-3); line-height: 1; color: var(--cobalt); }
+.upnext-date .year { font-variation-settings: "wdth" 118; font-size: 0.9rem; letter-spacing: .12em; color: var(--muted); }
+.upnext-body { display: grid; gap: 16px; min-width: 0; }
+.upnext-body h2 { font-size: var(--step-4); }
+.upnext-body p { color: var(--muted); max-width: var(--measure); }
+.upnext-ctas { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px; }
+@media (min-width: 820px) {
+  .upnext { grid-template-columns: 13rem 1fr; }
+  .upnext-date { border-right: 1px solid var(--rule); padding-right: 24px; }
+}
+
+/* ---------- mailing list ---------- */
+#list { padding-block-start: clamp(64px, 10vw, 120px); }
+.mailing {
+  display: grid; grid-template-columns: 1fr; gap: 24px 56px; align-items: end;
+  border-top: 1px solid var(--ink);
+  padding-block: clamp(28px, 5vw, 48px) 0;
+}
+@media (min-width: 880px) { .mailing { grid-template-columns: 1fr 1fr; } }
+.mailing-copy { display: grid; gap: 12px; }
+.mailing-copy h2 { font-size: var(--step-3); }
+.mailing-copy p { color: var(--muted); max-width: 48ch; }
+.mailing-form { gap: 10px; }
+.mailing-form small { color: var(--muted); }
+.choice { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; min-width: 0; }
+.choice legend { font-size: 0.85rem; font-weight: 600; font-variation-settings: "wdth" 108; padding: 0; margin-bottom: 6px; }
+.choice label { display: flex; align-items: center; gap: 10px; color: var(--muted); cursor: pointer; }
+.choice input { width: 18px; height: 18px; margin: 0; accent-color: var(--cobalt); flex: none; }
+.honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.inline { display: flex; gap: 10px; flex-wrap: wrap; }
+.inline input { flex: 1 1 220px; min-width: 0; }
+
+/* ---------- past nights ---------- */
+.nights { display: grid; gap: 28px 24px; grid-template-columns: 1fr; }
+@media (min-width: 520px) { .nights { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .nights { grid-template-columns: repeat(3, 1fr); } }
+.night {
+  display: grid; gap: 12px; align-content: start;
+  color: var(--ink); text-decoration: none;
+}
+.night .frame {
+  aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden;
+  border-radius: 6px; background: var(--rule);
+}
+.night img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.night:hover img { transform: scale(1.03); }
+.night h3 { font-size: var(--step-2); font-style: italic; font-weight: 400; }
+.night p { color: var(--muted); font-size: 0.98rem; }
+.night .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.night .frame + .label { margin-bottom: -6px; }
+.count { color: var(--muted); font-size: var(--step--1); white-space: nowrap; }
+.theme-title { display: grid; gap: 6px; }
+.night.all .frame {
+  display: grid; place-items: center; text-align: center; padding: 24px;
+  background: var(--sheet); border: 1px solid var(--rule);
+}
+.night.all .frame span { font-family: var(--display); font-style: italic; font-size: var(--step-3); line-height: 1.1; color: var(--cobalt); }
+
+/* ---------- programme ---------- */
+.programme {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  padding: clamp(20px, 4vw, 48px);
+  position: relative;
+}
+.programme::before {
+  content: ""; position: absolute; inset: 8px; pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--gilt) 45%, transparent);
+}
+.next-title { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.soldout {
+  font-variation-settings: "wdth" 125; font-weight: 700; font-size: 0.75rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gilt); border: 1.5px solid var(--gilt); border-radius: 999px;
+  padding: 5px 12px 4px; white-space: nowrap;
+}
+.next-note { font-size: 0.95rem; }
+.steps { list-style: none; counter-reset: step; margin: 6px 0 0; padding: 0; display: grid; gap: 14px; max-width: 52ch; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 2.2rem 1fr; gap: 12px; color: var(--muted); }
+.steps li::before {
+  content: counter(step); font-family: var(--display); font-style: italic; font-size: 1.6rem; line-height: 1;
+  color: var(--cobalt);
+}
+.steps strong { color: var(--ink); font-weight: 600; }
+.act-desc { color: var(--muted); max-width: 60ch; }
+.prog-top {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 8px 24px; flex-wrap: wrap;
+  padding-bottom: 20px; border-bottom: 1px solid var(--rule);
+}
+.prog-top h3 { font-size: var(--step-2); font-style: italic; font-weight: 400; }
+.prog-top h3 span { font-style: normal; }
+.prog-top p { color: var(--muted); font-size: var(--step--1); }
+.prog-cols { display: none; }
+.acts { list-style: none; margin: 0; padding: 0; }
+.act { display: grid; gap: 10px 32px; grid-template-columns: 1fr; padding-block: 22px; border-bottom: 1px solid var(--rule); }
+.act:last-child { border-bottom: 0; padding-bottom: 4px; }
+.act-name { font-family: var(--display); font-style: italic; font-size: var(--step-1); line-height: 1.2; }
+.act-name small { display: block; margin-top: 4px; }
+.cell { min-width: 0; display: grid; gap: 2px; }
+.cell .kind { display: none; }
+.piece { font-family: var(--display); font-style: italic; font-size: 1.15rem; line-height: 1.3; }
+.credit { color: var(--muted); font-size: var(--step--1); }
+.course { font-size: 1rem; }
+.cell.empty .course { color: var(--muted); }
+@media (max-width: 759px) { .cell .kind { display: block; } }
+@media (min-width: 760px) {
+  .act { grid-template-columns: 12rem 1fr; align-items: baseline; }
+}
+
+/* ---------- hosts ---------- */
+.hosts-intro { display: grid; gap: 28px; grid-template-columns: 1fr; align-items: end; margin-bottom: 48px; }
+.hosts-intro .section-head { margin-bottom: 0; }
+.hosts-intro figure { margin: 0; display: grid; gap: 10px; }
+.hosts-intro figure img { border-radius: 6px; width: 100%; aspect-ratio: 768 / 687; object-fit: cover; }
+figcaption { color: var(--muted); font-size: var(--step--1); }
+@media (min-width: 880px) { .hosts-intro { grid-template-columns: 1fr 1fr; gap: 56px; } }
+
+.hosts { display: grid; gap: 40px; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .hosts { grid-template-columns: 1fr 1fr; } }
+.host {
+  display: grid; grid-template-columns: minmax(110px, 38%) 1fr; gap: 22px; align-items: start;
+  padding-top: 26px; border-top: 1px solid var(--ink);
+}
+.portrait {
+  width: 100%; aspect-ratio: 4 / 5; max-width: 100%;
+  border-radius: 999px 999px 6px 6px; overflow: hidden;
+  border: 1px solid var(--gilt);
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+.host-body { display: grid; gap: 10px; min-width: 0; }
+.host h3 { font-size: var(--step-2); }
+.host .role { font-family: var(--display); font-style: italic; color: var(--muted); font-size: 1.05rem; }
+.host p.bio { color: var(--muted); max-width: 52ch; }
+.socials { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-top: 4px; }
+.socials a { font-variation-settings: "wdth" 112; font-size: 0.88rem; font-weight: 500; }
+@media (max-width: 460px) { .host { grid-template-columns: 1fr; } .portrait { width: 60%; } }
+
+/* ---------- notes ---------- */
+.notes { border-top: 1px solid var(--ink); max-width: 860px; }
+.notes details { border-bottom: 1px solid var(--rule); }
+.notes summary {
+  list-style: none; cursor: pointer;
+  display: flex; justify-content: space-between; gap: 20px; align-items: baseline;
+  padding-block: 20px;
+  font-family: var(--display); font-size: var(--step-1); line-height: 1.25;
+}
+.notes summary::-webkit-details-marker { display: none; }
+.notes summary::after { content: "+"; font-family: var(--body); color: var(--gilt); font-size: 1.4rem; line-height: 1; flex: none; transition: transform .2s ease; }
+.notes details[open] summary::after { transform: rotate(45deg); }
+.notes details p { padding-bottom: 22px; color: var(--muted); max-width: var(--measure); }
+
+/* ---------- box office ---------- */
+.box { display: grid; gap: 40px; grid-template-columns: 1fr; background: var(--sheet); border: 1px solid var(--rule); padding: clamp(22px, 4.5vw, 56px); }
+@media (min-width: 900px) { .box { grid-template-columns: 1fr 1.25fr; gap: 64px; } }
+.box-intro { display: grid; gap: 16px; align-content: start; }
+.box-intro h2 { font-size: var(--step-4); }
+.box-intro > p { color: var(--muted); max-width: 44ch; }
+.contact { display: grid; gap: 16px; padding-top: 12px; }
+.contact > div { display: grid; gap: 2px; }
+.contact .val { font-size: 1rem; user-select: all; }
+.copy-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.copy-btn {
+  font: inherit; font-size: 0.78rem; font-variation-settings: "wdth" 115; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  background: none; border: 1px solid var(--rule); color: var(--muted);
+  padding: 4px 10px; border-radius: 999px; cursor: pointer;
+}
+.copy-btn:hover { color: var(--cobalt); border-color: var(--cobalt); }
+form { display: grid; gap: 18px; }
+.row { display: grid; gap: 18px; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .row.two { grid-template-columns: 1fr 1fr; } }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-size: 0.85rem; font-weight: 600; font-variation-settings: "wdth" 108; }
+.field .hint { font-weight: 400; color: var(--muted); }
+input, select, textarea {
+  font: inherit; font-size: 1rem; color: var(--ink); background: var(--field);
+  border: 1px solid var(--rule); border-bottom: 1.5px solid var(--muted); border-radius: 4px;
+  padding: 0.7em 0.8em; width: 100%;
+}
+textarea { min-height: 96px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--cobalt); box-shadow: 0 0 0 3px color-mix(in srgb, var(--cobalt) 18%, transparent); }
+.form-foot { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; }
+.form-foot small { color: var(--muted); }
+.notice { border-left: 2px solid var(--gilt); padding: 12px 16px; background: color-mix(in srgb, var(--gilt) 8%, transparent); display: grid; gap: 4px; }
+.notice strong { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 1.2rem; }
+.notice p { color: var(--muted); font-size: 0.95rem; }
+
+/* ---------- gallery view ---------- */
+.gallery-top { padding-block: clamp(32px, 6vw, 64px) 0; display: grid; gap: 18px; }
+.gallery-top h1 { font-size: var(--step-4); }
+.gallery-top p { color: var(--muted); max-width: var(--measure); }
+.back { font-variation-settings: "wdth" 112; font-size: 0.9rem; font-weight: 500; text-decoration: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 6px; }
+.chips a {
+  font-variation-settings: "wdth" 112; font-size: 0.88rem; font-weight: 500;
+  color: var(--ink); text-decoration: none;
+  border: 1px solid var(--rule); border-radius: 999px; padding: 6px 14px;
+  background: var(--sheet);
+}
+.chips a:hover { border-color: var(--cobalt); color: var(--cobalt); }
+.theme { padding-block: clamp(48px, 8vw, 88px) 0; scroll-margin-top: 16px; }
+.theme-head {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px;
+  border-top: 1px solid var(--ink); padding-top: 22px; margin-bottom: 26px;
+}
+.theme-head h2 { font-size: var(--step-3); font-style: italic; font-weight: 400; }
+.theme-head p { color: var(--muted); max-width: 52ch; flex: 1 1 320px; }
+.masonry { columns: 2; column-gap: 12px; }
+@media (min-width: 760px) { .masonry { columns: 3; column-gap: 16px; } }
+.shot {
+  display: block; width: 100%; padding: 0; margin: 0 0 12px; border: 0; background: var(--rule);
+  border-radius: 6px; overflow: hidden; cursor: zoom-in; break-inside: avoid;
+}
+@media (min-width: 760px) { .shot { margin-bottom: 16px; } }
+.shot img { width: 100%; height: auto; transition: opacity .2s ease; }
+.shot:hover img { opacity: .9; }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 50;
+  background: var(--scrim);
+  display: grid; grid-template-rows: auto 1fr auto;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  color: var(--room-ink);
+}
+.lb-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.lb-bar .label { color: var(--room-gilt); }
+.lb-stage { display: grid; place-items: center; min-height: 0; padding-block: 12px; }
+.lb-stage img { max-height: 100%; max-width: 100%; width: auto; height: auto; object-fit: contain; border-radius: 4px; }
+.lb-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.lb-foot p { flex: 1 1 260px; color: color-mix(in srgb, var(--room-ink) 85%, transparent); font-size: 0.98rem; }
+.lb-btn {
+  font: inherit; font-variation-settings: "wdth" 112; font-weight: 600; font-size: 0.9rem;
+  background: transparent; color: var(--room-ink);
+  border: 1px solid color-mix(in srgb, var(--room-ink) 40%, transparent);
+  border-radius: 999px; padding: 8px 16px; cursor: pointer;
+}
+.lb-btn:hover { border-color: var(--room-ink); }
+.lb-nav { display: flex; gap: 8px; }
+
+/* ---------- footer ---------- */
+footer { padding-block: clamp(72px, 10vw, 120px) 48px; }
+.foot { display: grid; gap: 28px; grid-template-columns: 1fr; border-top: 1px solid var(--ink); padding-top: 32px; }
+@media (min-width: 760px) { .foot { grid-template-columns: 1.3fr 1fr 1fr; } }
+.foot .logo { width: 190px; }
+.foot div { display: grid; gap: 6px; align-content: start; }
+.foot p, .foot a { font-size: 0.95rem; }
+.foot p { color: var(--muted); }
+.foot .foot-sub { padding-top: 14px; }
+.fine { padding-top: 32px; color: var(--muted); font-size: 0.8rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+
+
+<header class="site-head">
+  <div class="wrap">
+    <a href="#top" aria-label="Opera Up Close, home"><span class="logo" role="img" aria-label="Opera Up Close"></span></a>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="#evening">The evening</a>
+      <a href="#gallery" id="nav-gallery">Past nights</a>
+      <a href="#hosts">Your hosts</a>
+      <a href="#private">Private events</a>
+      <a href="#notes">Good to know</a>
+    </nav>
+    <a class="btn head-cta" href="#list">Get tickets</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg class="i-open" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+      <svg class="i-close" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="home-view">
+  <div class="hero wrap" id="top">
+    <div class="room">
+      <div class="room-copy">
+        <span class="label room-label">Opera + cuisine in Ravenswood, Chicago</span>
+        <h1>A night at the opera, served at our dining table.</h1>
+        <p class="lede">Once a month, tenor John Concepción sings and Alex Hinand cooks for a small group of guests in their vintage Chicago apartment. You don't need to know a thing about opera. Just come hungry.</p>
+        <div class="ctas">
+          <a class="btn" href="#list">Join the mailing list</a>
+          <a class="btn ghost" href="#gallery">See past nights</a>
+        </div>
+      </div>
+
+      <svg class="tablescape" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" role="img" aria-labelledby="ts-title">
+        <title id="ts-title">Illustration of a candlelit dinner table at home, set with plates, wine, flowers and food, with a lamp, framed poster, music stand and bookshelf behind it.</title>
+        <defs>
+          <radialGradient id="g-lamp" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#F6D98F" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#F6D98F" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="g-candle" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#FFD98A" stop-opacity=".6"/>
+            <stop offset="1" stop-color="#FFD98A" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="g-warm" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#F3B866" stop-opacity=".22"/>
+            <stop offset="1" stop-color="#F3B866" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="g-wall" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0E1A3A"/>
+            <stop offset="1" stop-color="#16244A"/>
+          </linearGradient>
+          <linearGradient id="g-wood" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#6B4126"/>
+            <stop offset="1" stop-color="#8A5733"/>
+          </linearGradient>
+          <linearGradient id="g-bottle" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#13301F"/>
+            <stop offset=".35" stop-color="#2C5A3B"/>
+            <stop offset="1" stop-color="#0F2618"/>
+          </linearGradient>
+          <linearGradient id="g-brass" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#9E7A34"/>
+            <stop offset=".5" stop-color="#E2C27A"/>
+            <stop offset="1" stop-color="#8E6B2A"/>
+          </linearGradient>
+          <pattern id="p-runner" width="28" height="12" patternUnits="userSpaceOnUse">
+            <rect width="28" height="12" fill="#ECE6D6"/>
+            <rect x="0" y="5" width="28" height="1.2" fill="#C9C0AA"/>
+          </pattern>
+          <g id="glass">
+            <ellipse cx="0" cy="0" rx="17" ry="4" fill="#FFFFFF" fill-opacity=".28"/>
+            <rect x="-1.4" y="-42" width="2.8" height="42" fill="#FFFFFF" fill-opacity=".45"/>
+            <path d="M-20 -92 Q-23 -50 0 -44 Q23 -50 20 -92 Z" fill="#FFFFFF" fill-opacity=".12" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="1.4"/>
+            <path d="M-19.4 -70 Q-19 -51 0 -47 Q19 -51 19.4 -70 Z" fill="#6E1630"/>
+            <ellipse cx="0" cy="-70" rx="19.4" ry="3.2" fill="#8E2443"/>
+            <path d="M-13 -86 Q-15 -66 -9 -56" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <g id="bottle">
+            <path d="M-22 0 L-22 -100 Q-22 -128 -8 -140 L-8 -172 L8 -172 L8 -140 Q22 -128 22 -100 L22 0 Z" fill="url(#g-bottle)"/>
+            <rect x="-9" y="-182" width="18" height="24" rx="2" fill="#C9A24E"/>
+            <rect x="-22" y="-74" width="44" height="42" fill="#EFE6CF"/>
+            <rect x="-14" y="-62" width="28" height="2" fill="#0050BA"/>
+            <rect x="-10" y="-54" width="20" height="1.5" fill="#6B5A3A"/>
+            <rect x="-17" y="-122" width="4" height="110" rx="2" fill="#FFFFFF" fill-opacity=".14"/>
+          </g>
+          <g id="candlestick">
+            <ellipse cx="0" cy="0" rx="15" ry="4.5" fill="url(#g-brass)"/>
+            <rect x="-4" y="-56" width="8" height="56" fill="url(#g-brass)"/>
+            <ellipse cx="0" cy="-30" rx="7" ry="3" fill="url(#g-brass)"/>
+            <ellipse cx="0" cy="-56" rx="10" ry="3.5" fill="url(#g-brass)"/>
+            <rect x="-5" y="-130" width="10" height="74" rx="2" fill="#F3ECDD"/>
+            <rect x="-5" y="-130" width="3" height="74" fill="#FFFFFF" fill-opacity=".5"/>
+            <rect x="-.6" y="-136" width="1.2" height="7" fill="#3A2A1A"/>
+          </g>
+          <g id="flame">
+            <path d="M0 -26 C7 -16 8 -6 0 0 C-8 -6 -7 -16 0 -26 Z" fill="#FFC25C"/>
+            <path d="M0 -17 C3.5 -11 4 -5 0 -2 C-4 -5 -3.5 -11 0 -17 Z" fill="#FFF4D6"/>
+          </g>
+        </defs>
+
+        <!-- wall -->
+        <rect width="1200" height="520" fill="url(#g-wall)"/>
+        <rect y="268" width="1200" height="2" fill="#24345E"/>
+
+        <!-- wall sconce, left -->
+        <circle class="glow" cx="96" cy="150" r="150" fill="url(#g-lamp)"/>
+        <rect x="93" y="176" width="6" height="34" fill="#C9A24E"/>
+        <rect x="80" y="206" width="32" height="6" rx="3" fill="#C9A24E"/>
+        <path d="M62 112 L130 112 L148 176 L44 176 Z" fill="#F1E3BF"/>
+        <path d="M62 112 L130 112 L134 124 L58 124 Z" fill="#FFFFFF" fill-opacity=".35"/>
+
+        <!-- framed poster -->
+        <rect x="222" y="44" width="150" height="196" fill="#C9A24E"/>
+        <rect x="230" y="52" width="134" height="180" fill="#B42A4E"/>
+        <circle cx="297" cy="120" r="38" fill="#1F4FB5"/>
+        <path d="M262 200 Q297 140 332 200" fill="none" stroke="#F3ECDD" stroke-width="5"/>
+        <rect x="250" y="208" width="94" height="4" fill="#F3ECDD"/>
+        <rect x="266" y="218" width="62" height="3" fill="#F3ECDD" fill-opacity=".7"/>
+        <!-- small print -->
+        <rect x="400" y="96" width="78" height="96" fill="#2B2018"/>
+        <rect x="406" y="102" width="66" height="84" fill="#EDE7DA"/>
+        <path d="M416 170 C430 120 450 150 462 116" fill="none" stroke="#0050BA" stroke-width="3"/>
+        <circle cx="446" cy="128" r="7" fill="#D6AE63"/>
+
+        <!-- music stand -->
+        <rect x="818" y="150" width="3" height="190" fill="#2A2A30"/>
+        <path d="M776 150 L862 150 L870 92 L768 92 Z" fill="#23232A"/>
+        <path d="M782 144 L856 144 L862 100 L776 100 Z" fill="#F3ECDD"/>
+        <g fill="#8A8170">
+          <rect x="784" y="108" width="72" height="1"/><rect x="784" y="111" width="72" height="1"/><rect x="784" y="114" width="72" height="1"/><rect x="784" y="117" width="72" height="1"/><rect x="784" y="120" width="72" height="1"/>
+          <rect x="784" y="128" width="70" height="1"/><rect x="784" y="131" width="70" height="1"/><rect x="784" y="134" width="70" height="1"/><rect x="784" y="137" width="70" height="1"/>
+        </g>
+        <g fill="#3A3428">
+          <circle cx="796" cy="114" r="2"/><circle cx="808" cy="111" r="2"/><circle cx="822" cy="117" r="2"/><circle cx="838" cy="109" r="2"/><circle cx="800" cy="134" r="2"/><circle cx="816" cy="131" r="2"/><circle cx="834" cy="136" r="2"/>
+        </g>
+
+        <!-- bookshelf -->
+        <circle class="glow" cx="1050" cy="120" r="170" fill="url(#g-lamp)" opacity=".7"/>
+        <g id="shelf">
+          <rect x="930" y="8" width="230" height="300" fill="#1A2850"/>
+          <rect x="930" y="8" width="6" height="300" fill="#EDE7DA"/>
+          <rect x="1154" y="8" width="6" height="300" fill="#EDE7DA"/>
+          <rect x="930" y="84" width="230" height="5" fill="#EDE7DA"/>
+          <rect x="930" y="164" width="230" height="5" fill="#EDE7DA"/>
+          <rect x="930" y="244" width="230" height="5" fill="#EDE7DA"/>
+          <g id="books"></g>
+          <!-- lamp on shelf -->
+          <rect x="1080" y="134" width="5" height="30" fill="#C9A24E"/>
+          <path d="M1062 106 L1104 106 L1112 136 L1054 136 Z" fill="#F1E3BF"/>
+          <!-- vase -->
+          <path d="M1102 84 Q1092 60 1102 44 L1118 44 Q1128 60 1118 84 Z" fill="#C7D2C9"/>
+          <!-- trailing plant -->
+          <g fill="#4E7A43">
+            <ellipse cx="972" cy="16" rx="9" ry="6"/><ellipse cx="960" cy="30" rx="8" ry="5"/><ellipse cx="966" cy="48" rx="8" ry="5"/><ellipse cx="954" cy="64" rx="7" ry="5"/><ellipse cx="960" cy="94" rx="7" ry="5"/><ellipse cx="950" cy="112" rx="7" ry="4"/><ellipse cx="958" cy="132" rx="6" ry="4"/>
+          </g>
+          <g fill="#6E9C55">
+            <ellipse cx="982" cy="24" rx="7" ry="5"/><ellipse cx="948" cy="40" rx="6" ry="4"/><ellipse cx="972" cy="74" rx="6" ry="4"/><ellipse cx="944" cy="146" rx="6" ry="4"/>
+          </g>
+        </g>
+
+        <!-- chair backs -->
+        <g fill="#2B1C14">
+          <path d="M196 336 L196 262 Q238 238 280 262 L280 336 Z"/>
+          <path d="M456 336 L456 262 Q498 238 540 262 L540 336 Z"/>
+          <path d="M696 336 L696 262 Q738 238 780 262 L780 336 Z"/>
+          <path d="M954 336 L954 262 Q996 238 1038 262 L1038 336 Z"/>
+        </g>
+        <g fill="#4A3020">
+          <rect x="212" y="270" width="52" height="5" rx="2"/><rect x="472" y="270" width="52" height="5" rx="2"/><rect x="712" y="270" width="52" height="5" rx="2"/><rect x="970" y="270" width="52" height="5" rx="2"/>
+        </g>
+
+        <!-- table -->
+        <polygon points="80,330 1120,330 1200,478 0,478" fill="url(#g-wood)"/>
+        <g stroke="#5A3520" stroke-opacity=".35" stroke-width="1.2">
+          <line x1="64" y1="360" x2="1136" y2="360"/><line x1="40" y1="404" x2="1160" y2="404"/><line x1="20" y1="446" x2="1180" y2="446"/>
+        </g>
+        <rect x="0" y="478" width="1200" height="42" fill="#4A2A18"/>
+        <rect x="0" y="478" width="1200" height="4" fill="#2E190E"/>
+
+        <!-- back place settings (mirrored: those guests face us) -->
+        <g>
+          <g transform="translate(238 352) scale(-.5 .42)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+          <g transform="translate(498 352) scale(-.5 .42)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+          <g transform="translate(738 352) scale(-.5 .42)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+          <g transform="translate(996 352) scale(-.5 .42)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+        </g>
+
+        <!-- glasses in front of the far plates -->
+        <use href="#glass" transform="translate(268 365) scale(.8)"/>
+        <use href="#glass" transform="translate(528 365) scale(.8)"/>
+        <use href="#glass" transform="translate(768 365) scale(.8)"/>
+        <use href="#glass" transform="translate(1026 365) scale(.8)"/>
+
+        <!-- runner -->
+        <polygon points="58,370 1142,370 1158,416 42,416" fill="url(#p-runner)"/>
+        <polygon points="56,375 1144,375 1145,378 55,378" fill="#0050BA"/>
+        <polygon points="46,407 1154,407 1155,410 45,410" fill="#0050BA"/>
+
+        <!-- cheese board -->
+        <ellipse cx="160" cy="396" rx="70" ry="13" fill="#9A6A3E"/>
+        <ellipse cx="160" cy="393" rx="66" ry="11" fill="#B88350"/>
+        <path d="M120 394 L150 384 L150 396 Z" fill="#F2D88A"/>
+        <path d="M156 396 L182 382 L190 394 Z" fill="#E8C86A"/>
+        <circle cx="196" cy="392" r="5" fill="#E58A4E"/><circle cx="204" cy="396" r="5" fill="#E58A4E"/><circle cx="198" cy="399" r="4.5" fill="#D67440"/>
+        <g fill="#7B2A55"><circle cx="128" cy="400" r="4"/><circle cx="136" cy="402" r="4"/><circle cx="132" cy="396" r="4"/></g>
+
+        <!-- carrot sunburst bowl -->
+        <g transform="translate(300 398)">
+          <g stroke-linecap="round" stroke-width="5">
+            <line x1="0" y1="-6" x2="-46" y2="-34" stroke="#E7782F"/>
+            <line x1="0" y1="-6" x2="-30" y2="-48" stroke="#8DB65A"/>
+            <line x1="0" y1="-6" x2="-12" y2="-56" stroke="#E7782F"/>
+            <line x1="0" y1="-6" x2="6" y2="-58" stroke="#F0A23C"/>
+            <line x1="0" y1="-6" x2="22" y2="-52" stroke="#8DB65A"/>
+            <line x1="0" y1="-6" x2="38" y2="-42" stroke="#E7782F"/>
+            <line x1="0" y1="-6" x2="50" y2="-26" stroke="#F0A23C"/>
+            <line x1="0" y1="-6" x2="-52" y2="-18" stroke="#8DB65A"/>
+          </g>
+          <path d="M-48 -8 Q0 20 48 -8 Z" fill="#F5F2EA"/>
+          <ellipse cx="0" cy="-8" rx="48" ry="7" fill="#E9E4D8"/>
+          <ellipse cx="0" cy="-9" rx="14" ry="4" fill="#B5CF7A"/>
+        </g>
+
+        <!-- bottles -->
+        <use href="#bottle" x="420" y="402"/>
+        <use href="#bottle" x="808" y="400"/>
+
+        <!-- candles -->
+        <g>
+          <circle class="glow" cx="540" cy="268" r="70" fill="url(#g-candle)"/>
+          <circle class="glow" cx="680" cy="258" r="70" fill="url(#g-candle)"/>
+          <circle class="glow" cx="1000" cy="278" r="62" fill="url(#g-candle)"/>
+          <circle class="glow" cx="92" cy="286" r="60" fill="url(#g-candle)"/>
+          <use href="#candlestick" x="540" y="398"/>
+          <use href="#candlestick" x="680" y="388" transform="translate(680 388) scale(1.08) translate(-680 -388)"/>
+          <use href="#candlestick" x="1000" y="398" transform="translate(1000 398) scale(.92) translate(-1000 -398)"/>
+          <use href="#candlestick" x="92" y="396" transform="translate(92 396) scale(.9) translate(-92 -396)"/>
+          <g transform="translate(540 262)"><g>
+            <animateTransform attributeName="transform" type="scale" values="1 1;0.93 1.07;1.04 0.95;0.97 1.04;1 1" dur="2.6s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="rotate" values="0;-3;2;-1;0" dur="3.4s" repeatCount="indefinite" additive="sum"/>
+            <use href="#flame"/></g></g>
+          <g transform="translate(680 241)"><g>
+            <animateTransform attributeName="transform" type="scale" values="1 1;1.04 0.95;0.93 1.07;1 1" dur="3.1s" begin="-0.8s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="rotate" values="0;2;-3;0" dur="2.9s" begin="-0.4s" repeatCount="indefinite" additive="sum"/>
+            <use href="#flame"/></g></g>
+          <g transform="translate(1000 272)"><g>
+            <animateTransform attributeName="transform" type="scale" values="1 1;0.95 1.06;1.03 0.96;1 1" dur="2.2s" begin="-1.4s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="rotate" values="0;-2;3;0" dur="3.7s" repeatCount="indefinite" additive="sum"/>
+            <use href="#flame"/></g></g>
+          <g transform="translate(92 273)"><g>
+            <animateTransform attributeName="transform" type="scale" values="1 1;1.03 0.96;0.94 1.06;1 1" dur="2.8s" begin="-0.6s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="rotate" values="0;3;-2;0" dur="3.2s" begin="-1s" repeatCount="indefinite" additive="sum"/>
+            <use href="#flame"/></g></g>
+        </g>
+
+        <!-- tulips -->
+        <g transform="translate(610 402)">
+          <g stroke="#4E7A43" stroke-width="3" fill="none" stroke-linecap="round">
+            <path d="M0 -40 Q-6 -80 -26 -104"/><path d="M0 -40 Q2 -86 4 -118"/><path d="M0 -40 Q10 -78 30 -98"/><path d="M0 -40 Q-14 -70 -40 -80"/>
+          </g>
+          <path d="M-12 -40 L-36 -62 Q-48 -58 -44 -46 Z" fill="#5F8F3A"/>
+          <path d="M12 -40 L40 -58 Q48 -50 40 -42 Z" fill="#5F8F3A"/>
+          <path d="M-34 -100 Q-34 -122 -26 -122 Q-18 -122 -18 -100 Q-26 -94 -34 -100 Z" fill="#F08A80"/>
+          <path d="M-4 -116 Q-4 -140 4 -140 Q12 -140 12 -116 Q4 -110 -4 -116 Z" fill="#F4A9A0"/>
+          <path d="M22 -96 Q22 -118 30 -118 Q38 -118 38 -96 Q30 -90 22 -96 Z" fill="#E76F6A"/>
+          <path d="M-48 -78 Q-48 -98 -40 -98 Q-32 -98 -32 -78 Q-40 -72 -48 -78 Z" fill="#F4A9A0"/>
+          <path d="M-14 0 Q-20 -24 -8 -42 L8 -42 Q20 -24 14 0 Z" fill="#0050BA"/>
+          <ellipse cx="0" cy="-42" rx="8" ry="2.5" fill="#2F6FD0"/>
+          <path d="M-8 -6 Q-12 -22 -4 -36" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="2"/>
+        </g>
+
+        <!-- tart on a cake stand -->
+        <g transform="translate(920 400)">
+          <ellipse cx="0" cy="0" rx="26" ry="5" fill="#D8D2C4"/>
+          <rect x="-5" y="-34" width="10" height="34" fill="#E6E1D5"/>
+          <ellipse cx="0" cy="-36" rx="62" ry="10" fill="#E6E1D5"/>
+          <path d="M-54 -40 L-54 -52 Q0 -64 54 -52 L54 -40 Q0 -28 -54 -40 Z" fill="#D9A45C"/>
+          <ellipse cx="0" cy="-52" rx="54" ry="9" fill="#C7D08A"/>
+          <g fill="#D8443A"><ellipse cx="-30" cy="-52" rx="9" ry="4"/><ellipse cx="-10" cy="-55" rx="9" ry="4"/><ellipse cx="12" cy="-55" rx="9" ry="4"/><ellipse cx="32" cy="-52" rx="9" ry="4"/><ellipse cx="0" cy="-49" rx="8" ry="3.5"/></g>
+        </g>
+
+        <!-- bread basket -->
+        <g transform="translate(1086 402)">
+          <path d="M-46 -14 Q0 14 46 -14 L40 0 Q0 16 -40 0 Z" fill="#8A6234"/>
+          <ellipse cx="-16" cy="-18" rx="20" ry="11" fill="#D59A52"/>
+          <ellipse cx="14" cy="-20" rx="22" ry="12" fill="#C88A44"/>
+          <ellipse cx="0" cy="-26" rx="16" ry="9" fill="#DDA660"/>
+          <path d="M-46 -14 Q0 6 46 -14" fill="none" stroke="#6E4A24" stroke-width="2"/>
+        </g>
+
+        <!-- glasses -->
+        <use href="#glass" x="235" y="446"/>
+        <use href="#glass" x="525" y="446"/>
+        <use href="#glass" x="815" y="446"/>
+        <use href="#glass" x="1105" y="446"/>
+
+        <!-- front place settings -->
+        <g>
+          <g transform="translate(165 470) scale(.9)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+          <g transform="translate(455 470) scale(.9)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+          <g transform="translate(745 470) scale(.9)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+          <g transform="translate(1035 470) scale(.9)">
+            <path d="M-150 -10 L-120 -38 L-92 -38 L-118 -10 Z" fill="#E9E1CF"/>
+            <rect x="-128" y="-30" width="3" height="28" fill="#B9B6B0" transform="rotate(-8 -127 -16)"/>
+            <rect x="112" y="-30" width="4" height="30" rx="2" fill="#B9B6B0" transform="rotate(8 114 -15)"/>
+            <ellipse cx="0" cy="-14" rx="104" ry="24" fill="#1E3A7A"/>
+            <ellipse cx="0" cy="-14" rx="96" ry="21.5" fill="#F7F5F0"/>
+            <ellipse cx="0" cy="-14" rx="64" ry="13.5" fill="#EFEBE3"/>
+          </g>
+        </g>
+
+        <!-- warm light over the table -->
+        <ellipse cx="600" cy="360" rx="640" ry="220" fill="url(#g-warm)" pointer-events="none"/>
+      </svg>
+    </div>
+    <div class="facts">
+      <span>Monthly, by reservation</span>
+      <span>A new theme every month</span>
+      <span>Ravenswood, Chicago</span>
+    </div>
+  </div>
+
+  <section id="next" class="wrap" aria-labelledby="next-h">
+    <div class="upnext">
+      <div class="upnext-date">
+        <span class="label">Up next</span>
+        <span class="month">November</span>
+        <span class="year">2026</span>
+      </div>
+      <div class="upnext-body">
+        <div class="next-title">
+          <h2 id="next-h">The Bountiful Harvest</h2>
+          <span class="soldout">Sold out</span>
+        </div>
+        <p>An evening of gratitude in music and food. The program will feature favorite songs and arias chosen for their spirit of hope and inspiration, and the menu will highlight the season's most versatile product, squash.</p>
+        <p class="next-note">Tickets for each new evening go to the mailing list first. Join to hear about the next one.</p>
+        <div class="upnext-ctas">
+          <a class="btn" href="#list">Join the mailing list</a>
+          <a class="btn ghost" href="#private">Book us for a private event</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="ov-h">
+    <div class="overture">
+      <div class="overture-q">
+        <span class="label">Why Opera Up Close?</span>
+        <blockquote id="ov-h">Most people experience opera from the back of a theater. We invite you to experience it <em>from across the dinner table.</em></blockquote>
+      </div>
+      <div class="copy">
+        <p>In a beautifully curated vintage Chicago apartment, Opera Up Close brings together professional vocal artistry and inspired cuisine for an evening that is equal parts concert, dinner party, and community building.</p>
+        <p>From the first course to the final aria, every detail is crafted with intention. Alex Hinand, culinary creator and lifestyle visionary with a devoted following, designs a menu that matches the drama and elegance of the evening. John Concepción, a professional tenor with decades on the operatic stage, performs live just feet away from you, creating a unique artistic experience.</p>
+        <p>There is no distance between you and the art. There is only the music, the food, and the feeling that you are exactly where you are supposed to be.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="past" class="wrap" aria-labelledby="past-h">
+    <div class="section-head">
+      <span class="label">Past nights</span>
+      <h2 id="past-h">Every month has a theme</h2>
+      <p>The table, the menu and the music all change with it. Here are the evenings so far.</p>
+    </div>
+    <div class="nights" id="nights"></div>
+  </section>
+
+  <section id="evening" class="wrap" aria-labelledby="ev-h">
+    <div class="section-head">
+      <span class="label">The evening</span>
+      <h2 id="ev-h">How the night unfolds</h2>
+      <p>Every evening follows the shape of an opera, act by act. The music and the menu change with each month's theme.</p>
+    </div>
+    <div class="programme">
+      <ol class="acts">
+        <li class="act">
+          <div class="act-name">Overture<small class="label">Arrival</small></div>
+          <p class="act-desc">Guests arrive and greet each other. Specialty non-alcoholic drinks and appetizers are served.</p>
+        </li>
+        <li class="act">
+          <div class="act-name">Entr'acte<small class="label">Welcome</small></div>
+          <p class="act-desc">A few words from the hosts about the evening and what to expect.</p>
+        </li>
+        <li class="act">
+          <div class="act-name">Act I<small class="label">The music</small></div>
+          <p class="act-desc">Arias and songs on the evening's theme, sung by tenor John Concepción and accompanied by pianist Paul Hamilton.</p>
+        </li>
+        <li class="act">
+          <div class="act-name">Act II<small class="label">Dinner</small></div>
+          <p class="act-desc">Everyone moves to the dining room for dinner and conversation.</p>
+        </li>
+        <li class="act">
+          <div class="act-name">Act III<small class="label">Dessert</small></div>
+          <p class="act-desc">Guests return to the living room for coffee and dessert while John and Paul perform more arias and songs on the evening's theme.</p>
+        </li>
+        <li class="act">
+          <div class="act-name">Encore<small class="label">To take home</small></div>
+          <p class="act-desc">Each guest leaves with a goodie bag of hand-crafted cookies, made by Alex.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="hosts" class="wrap" aria-labelledby="hosts-h">
+    <div class="hosts-intro">
+      <div class="section-head">
+        <span class="label">Your hosts</span>
+        <h2 id="hosts-h">John &amp; Alex</h2>
+        <p>John Concepción and Alex Hinand are the duo behind Opera Up Close, a shared passion for great music and exceptional food brought to life in the most personal of settings: their home.</p>
+        <p>Together, they've combined their talents to offer something rare: an evening of world-class opera up close to move you and inspired cuisine to delight you.</p>
+      </div>
+      <figure>
+        <img src="photos/hosts-together.webp" width="1600" height="1430" alt="John and Alex at the head of a long table set with white plates, linen napkins and tall candles." loading="lazy">
+        <figcaption>John and Alex before guests arrive for Vive la France!</figcaption>
+      </figure>
+    </div>
+    <div class="hosts">
+      <article class="host">
+        <div class="portrait"><img src="photos/host-john.webp" width="800" height="1000" alt="Portrait of John Concepción smiling, resting his cheek on his hand." loading="lazy"></div>
+        <div class="host-body">
+          <h3>John Concepción</h3>
+          <span class="role">Tenor</span>
+          <p class="bio">A professional tenor with decades on the operatic stage, performing live just feet away from you.</p>
+          <div class="socials">
+            <a href="https://www.tiktok.com/@jctenor" target="_blank" rel="noopener">TikTok</a>
+            <a href="https://substack.com/@johnconcepcion" target="_blank" rel="noopener">Substack</a>
+          </div>
+        </div>
+      </article>
+      <article class="host">
+        <div class="portrait"><img src="photos/host-alex.webp" width="800" height="1000" alt="Portrait of Alex Hinand smiling in a blue shirt." loading="lazy"></div>
+        <div class="host-body">
+          <h3>Alex Hinand</h3>
+          <span class="role">Cook &amp; host</span>
+          <p class="bio">A celebrated culinary and lifestyle creator with a devoted following across Instagram, TikTok, and YouTube, known for turning every meal into an experience worth savoring.</p>
+          <div class="socials">
+            <a href="https://www.instagram.com/alexhinand/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.tiktok.com/@alexhinand" target="_blank" rel="noopener">TikTok</a>
+            <a href="https://www.youtube.com/@alexhinand" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://alexhinand.substack.com/" target="_blank" rel="noopener">Substack</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="notes" class="wrap" aria-labelledby="notes-h">
+    <div class="section-head">
+      <span class="label">Good to know</span>
+      <h2 id="notes-h">Before you come</h2>
+    </div>
+    <div class="notes">
+      <details open>
+        <summary>Do I need to know anything about opera?</summary>
+        <p>Not at all. Plenty of guests have never been to an opera house. You'll hear a little about each piece before it's sung, and you're welcome to ask questions over dinner.</p>
+      </details>
+      <details>
+        <summary>What should I wear?</summary>
+        <p>Whatever makes you feel like you're out for a nice evening. Some guests dress for the theme, some come straight from work. Both are welcome.</p>
+      </details>
+      <details>
+        <summary>Can you work with dietary needs?</summary>
+        <p>Email us about allergies or restrictions once you have your ticket, and Alex will plan around them.</p>
+      </details>
+      <details>
+        <summary>Where is it?</summary>
+        <p>In John and Alex's apartment in the Ravenswood neighborhood of Chicago. The address and arrival details come with your ticket.</p>
+      </details>
+      <details>
+        <summary>How do tickets work?</summary>
+        <p>Tickets are sold through Eventbrite, usually about two weeks before each evening. Each one is announced to our mailing list first, and seats tend to sell out within hours of that email. Buying a ticket is the only way to hold a seat, so joining the list is the best way to get one.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="private" class="wrap" aria-labelledby="private-h">
+    <div class="box">
+      <div class="box-intro">
+        <span class="label">Private events</span>
+        <h2 id="private-h">Bring Opera Up Close to your home</h2>
+        <p>Hire John and Alex to cook and perform at your own gathering. Packages are available, and everything is negotiable.</p>
+        <div class="contact">
+          <div>
+            <span class="label">Email</span>
+            <div class="copy-row"><span class="val" id="email-val">operaupclose@icloud.com</span><button type="button" class="copy-btn" id="copy-email">Copy</button></div>
+          </div>
+        </div>
+      </div>
+      <form id="hire-form" novalidate>
+        <input type="text" name="_honey" id="f-honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="honey">
+        <div class="row two">
+          <div class="field"><label for="f-first">First name</label><input id="f-first" name="first" autocomplete="given-name" required></div>
+          <div class="field"><label for="f-last">Last name</label><input id="f-last" name="last" autocomplete="family-name" required></div>
+        </div>
+        <div class="row two">
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="f-phone">Phone <span class="hint">(optional)</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="row two">
+          <div class="field"><label for="f-date">Date or timeframe</label><input id="f-date" name="date" placeholder="e.g. a Saturday in March"></div>
+          <div class="field"><label for="f-guests">Number of guests</label><input id="f-guests" name="guests" inputmode="numeric" placeholder="e.g. 12"></div>
+        </div>
+        <div class="field">
+          <label for="f-notes">Tell us about your event <span class="hint">(occasion, location, what you have in mind)</span></label>
+          <textarea id="f-notes" name="notes"></textarea>
+        </div>
+        <div class="form-foot">
+          <button class="btn" type="submit">Send inquiry</button>
+          <small id="form-msg" role="status"></small>
+        </div>
+        <div class="notice" id="thanks" hidden>
+          <strong>Thank you, <span id="thanks-name"></span>.</strong>
+          <p>Your inquiry is on its way to John and Alex, and they'll be in touch soon.</p>
+        </div>
+        <div class="notice" id="hire-fallback" hidden>
+          <strong>That didn't go through.</strong>
+          <p>Please email your inquiry to <a href="mailto:operaupclose@icloud.com">operaupclose@icloud.com</a> and John and Alex will be in touch.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<main id="gallery-view" hidden>
+  <div class="wrap gallery-top">
+    <a class="back" href="#top">← Back to the home page</a>
+    <span class="label">Past nights</span>
+    <h1>The gallery</h1>
+    <p>Photos from every Opera Up Close evening so far. Tap any photo to see it larger.</p>
+    <nav class="chips" id="chips" aria-label="Jump to a night"></nav>
+  </div>
+  <div class="wrap" id="themes"></div>
+  <div class="wrap" style="padding-block: 56px 0;">
+    <a class="btn" href="#list">Join the list for the next one</a>
+  </div>
+</main>
+
+<section id="list" class="wrap" aria-labelledby="list-h">
+  <div class="mailing">
+    <div class="mailing-copy">
+      <span class="label">Tickets</span>
+      <h2 id="list-h">How to get a seat</h2>
+      <ol class="steps">
+        <li><span><strong>Join the mailing list.</strong> Every new evening is announced by email first.</span></li>
+        <li><span><strong>Watch for the email.</strong> Tickets go on sale through Eventbrite about two weeks before each evening.</span></li>
+        <li><span><strong>Buy your ticket quickly.</strong> Seats usually sell out within hours, and a ticket is the only way to hold one.</span></li>
+      </ol>
+    </div>
+    <form id="list-form" class="mailing-form" novalidate>
+      <div class="row two">
+        <div class="field"><label for="l-first">First name</label><input id="l-first" name="first" autocomplete="given-name"></div>
+        <div class="field"><label for="l-email">Email address</label><input id="l-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+      </div>
+      <fieldset class="choice">
+        <legend>What would you like to receive?</legend>
+        <label for="l-pref-both"><input type="radio" name="pref" id="l-pref-both" value="Both"> Event announcements and the newsletter</label>
+        <label for="l-pref-events"><input type="radio" name="pref" id="l-pref-events" value="Just Event Announcements"> Just event announcements</label>
+      </fieldset>
+      <div class="form-foot">
+        <button class="btn" type="submit" id="l-submit">Join the list</button>
+        <small id="list-msg" role="status"></small>
+      </div>
+      <div class="notice" id="list-thanks" hidden>
+        <strong>You're on the list.</strong>
+        <p>Watch your inbox for the next announcement.</p>
+      </div>
+      <div class="notice" id="list-fallback" hidden>
+        <strong>One more step.</strong>
+        <p>We couldn't send that from here. <a id="list-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeNydBGdBS4iA4X3grtlIGYrg_obBxpT0Wahkd2zspwtDiwHA/viewform" target="_blank" rel="noopener">Finish signing up on our Google Form</a>. Your details are filled in for you.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-bar">
+    <span class="label" id="lb-count"></span>
+    <button type="button" class="lb-btn" id="lb-close">Close</button>
+  </div>
+  <div class="lb-stage"><img id="lb-img" alt=""></div>
+  <div class="lb-foot">
+    <p id="lb-cap"></p>
+    <div class="lb-nav">
+      <button type="button" class="lb-btn" id="lb-prev">Previous</button>
+      <button type="button" class="lb-btn" id="lb-next">Next</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><span class="logo" role="img" aria-label="Opera Up Close"></span></div>
+      <div>
+        <span class="label">Find us</span>
+        <p>Ravenswood neighborhood of Chicago</p>
+      </div>
+      <div>
+        <span class="label">Follow John</span>
+        <a href="https://www.tiktok.com/@jctenor" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://substack.com/@johnconcepcion" target="_blank" rel="noopener">Substack</a>
+        <span class="label foot-sub">Follow Alex</span>
+        <a href="https://www.instagram.com/alexhinand/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@alexhinand" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.youtube.com/@alexhinand" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://alexhinand.substack.com/" target="_blank" rel="noopener">Substack</a>
+      </div>
+    </div>
+    <p class="fine">© 2026 Opera Up Close · Designed by <a href="https://www.acharius.design" target="_blank" rel="noopener">Fox</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* candles hold still for anyone who prefers reduced motion */
+  try {
+    var svgEl = document.querySelector('.tablescape');
+    var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var applyRM = function () { if (rm.matches) svgEl.pauseAnimations(); else svgEl.unpauseAnimations(); };
+    applyRM(); rm.addEventListener('change', applyRM);
+  } catch (e) {}
+
+  /* ---------- bookshelf spines ---------- */
+  var ns = 'http://www.w3.org/2000/svg';
+  var books = document.getElementById('books');
+  var colors = ['#C2264E', '#E7B04A', '#2F6FD0', '#EDE7DA', '#4E7A43', '#D67440', '#7B2A55', '#F08A80', '#1E3A7A', '#9DBB5E'];
+  var shelves = [[16, 82], [96, 162], [176, 242], [256, 306]];
+  var seed = 7;
+  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  shelves.forEach(function (s, si) {
+    var x = 942, stop = si === 1 ? 1050 : (si === 0 ? 1088 : 1150);
+    while (x < stop) {
+      var w = 7 + Math.floor(rnd() * 9);
+      var h = (s[1] - s[0]) * (0.62 + rnd() * 0.36);
+      if (x + w > stop) break;
+      var r = document.createElementNS(ns, 'rect');
+      r.setAttribute('x', x); r.setAttribute('y', (s[1] - h).toFixed(1));
+      r.setAttribute('width', w); r.setAttribute('height', h.toFixed(1));
+      r.setAttribute('fill', colors[Math.floor(rnd() * colors.length)]);
+      books.appendChild(r);
+      x += w + (rnd() < 0.15 ? 10 : 1);
+    }
+  });
+
+  /* ---------- past nights data ---------- */
+  var NIGHTS = [
+    { id: 'verde', name: 'A Verde Affair', date: 'April 2026',
+      blurb: 'A celebration of spring featuring arias and songs honoring the season, paired with a menu built around fresh spring fruits and vegetables.',
+      photos: [
+        ['verde-01.webp', 1050, 1400, 'The long table set for A Verde Affair, with a tulip on every napkin.'],
+        ['verde-02.webp', 1280, 720, 'Guests laughing around the candlelit table.'],
+        ['verde-03.webp', 1050, 1400, 'A crusted cutlet with asparagus over a bright green sauce.'],
+        ['verde-04.webp', 768, 1024, 'A place setting with a striped napkin, a pink tulip and the evening’s menu card.'],
+        ['verde-05.webp', 788, 1400, 'Guests along the table by candlelight.'],
+        ['verde-06.webp', 360, 640, 'Whipped cheese topped with green peppers, served with bread.'],
+        ['verde-07.webp', 1182, 665, 'A reading at the music stand by the living room windows.']
+      ] },
+    { id: 'rainbow', name: 'A Rainbow Revue', date: 'June 2026',
+      blurb: 'An evening of gender-bending music, with a tenor singing soprano arias and torch songs traditionally performed by women, paired with a brunch menu, the gayest meal of all.',
+      photos: [
+        ['rainbow-01.webp', 788, 1400, 'The table set for A Rainbow Revue, a different color at every place.'],
+        ['rainbow-02.webp', 1024, 768, 'A full table of guests under candlelight.'],
+        ['rainbow-03.webp', 1050, 1400, 'A tomato tart fresh from the oven.'],
+        ['rainbow-04.webp', 665, 1182, 'A song in a feather boa, with the pianist behind.'],
+        ['rainbow-05.webp', 720, 1280, 'Snap peas, radishes and cucumber with a creamy dip.'],
+        ['rainbow-06.webp', 768, 1024, 'Guests mid-dinner at the long table.'],
+        ['rainbow-07.webp', 720, 1280, 'Colored bowls at every place, with posters on the dark green wall.'],
+        ['rainbow-08.webp', 665, 1182, 'A performance at the music stand near the windows.']
+      ] },
+    { id: 'americana', name: 'Americana', date: 'July 2026',
+      blurb: 'A summer celebration of American music, featuring arias and songs by American composers, paired with a menu centered on corn, the traditional crop of the Americas.',
+      photos: [
+        ['americana-01.webp', 788, 1400, 'The full table on a summer evening.'],
+        ['americana-02.webp', 787, 1400, 'John singing beside the bookshelves.'],
+        ['americana-03.webp', 788, 1400, 'A cheese board with crackers and shrimp.'],
+        ['americana-04.webp', 720, 1280, 'Guests passing plates down the long table.'],
+        ['americana-05.webp', 788, 1400, 'Shrimp over a whipped spread with fresh basil.'],
+        ['americana-06.webp', 788, 1400, 'Guests gathered around the coffee table in the living room.'],
+        ['americana-07.webp', 788, 1400, 'Party favors wrapped up with Opera Up Close tags.'],
+        ['americana-08.webp', 788, 1400, 'A pitcher of red punch waiting on the side table.'],
+        ['americana-09.webp', 788, 1400, 'Alex, in his apron, chatting with a guest.']
+      ] },
+    { id: 'eurosummer', name: 'Eurosummer', date: 'August 2026',
+      blurb: 'A musical tour of Europe, with arias and songs from eight different countries. Each guest received a passport to guide them through the journey, and the menu celebrated summer produce like peaches, tomatoes, and melon.',
+      photos: [
+        ['eurosummer-01.webp', 788, 1400, 'A coffee table spread with a carrot-and-cucumber sunburst and cured meats.'],
+        ['eurosummer-02.webp', 720, 1280, 'Alex plating rigatoni in the kitchen.'],
+        ['eurosummer-03.webp', 787, 1400, 'The Eurosummer passport each guest received, held up by the piano.'],
+        ['eurosummer-04.webp', 1050, 1400, 'Pink tomatoes and toast on a blue-rimmed plate.'],
+        ['eurosummer-05.webp', 788, 1400, 'Guests settled into the living room.'],
+        ['eurosummer-06.webp', 768, 1024, 'A plate of shrimp, pasta, green beans and beans.'],
+        ['eurosummer-07.webp', 787, 1400, 'Conversation at the dining table.'],
+        ['eurosummer-08.webp', 768, 1024, 'Ice cream with a crumble topping.'],
+        ['eurosummer-09.webp', 787, 1400, 'The carrot-and-cucumber sunburst with a green dip.'],
+        ['eurosummer-10.webp', 720, 1280, 'A song by the bookshelves, with a guest following along in the program.']
+      ] },
+    { id: 'france', name: 'Vive la France!', date: 'October 2026',
+      blurb: 'An all-French evening of opera, art song, musical theater, and cabaret, paired with a menu inspired by Julia Child and French country cooking.',
+      photos: [
+        ['france-01.webp', 720, 1280, 'The long table during Vive la France!'],
+        ['france-02.webp', 768, 1024, 'John and Alex at the head of the table before guests arrive.'],
+        ['france-03.webp', 768, 1024, 'Alex, in his apron, greeting a guest.'],
+        ['france-04.webp', 319, 568, 'Soup simmering on the stove.'],
+        ['france-05.webp', 768, 1024, 'Guests around the candlelit table.'],
+        ['france-06.webp', 787, 1400, 'Dinner underway down the length of the table.'],
+        ['france-07.webp', 720, 1280, 'A French flag draped beside the music stand.'],
+        ['france-08.webp', 768, 1024, 'Guests with drinks in the living room.'],
+        ['france-09.webp', 720, 1280, 'Soup bowls set at each place.']
+      ] }
+  ];
+
+  function el(tag, attrs, html) {
+    var n = document.createElement(tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+
+  /* home: theme cards */
+  var nightsEl = document.getElementById('nights');
+  NIGHTS.forEach(function (n) {
+    var p = n.photos[0];
+    var a = el('a', { class: 'night', href: '#gallery-' + n.id });
+    var f = el('div', { class: 'frame' });
+    f.appendChild(el('img', { src: 'photos/' + p[0], width: p[1], height: p[2], alt: p[3], loading: 'lazy' }));
+    a.appendChild(f);
+    var meta = el('div', { class: 'meta' });
+    a.appendChild(el('span', { class: 'label' }, n.date));
+    meta.appendChild(el('h3', {}, n.name));
+    meta.appendChild(el('span', { class: 'count' }, n.photos.length + ' photos'));
+    a.appendChild(meta);
+    a.appendChild(el('p', {}, n.blurb));
+    nightsEl.appendChild(a);
+  });
+  var all = el('a', { class: 'night all', href: '#gallery' });
+  all.appendChild(el('div', { class: 'frame' }, '<span>See the whole gallery</span>'));
+  var total = NIGHTS.reduce(function (s, n) { return s + n.photos.length; }, 0);
+  var m2 = el('div', { class: 'meta' });
+  m2.appendChild(el('h3', {}, 'Every night'));
+  m2.appendChild(el('span', { class: 'count' }, total + ' photos'));
+  all.appendChild(el('span', { class: 'label' }, 'April to October 2026'));
+  all.appendChild(m2);
+  all.appendChild(el('p', {}, 'Tables, menus, songs and the people who came.'));
+  nightsEl.appendChild(all);
+
+  /* gallery view */
+  var chips = document.getElementById('chips');
+  var themes = document.getElementById('themes');
+  var flat = [];
+  NIGHTS.forEach(function (n) {
+    chips.appendChild(el('a', { href: '#gallery-' + n.id }, n.name));
+    var sec = el('section', { class: 'theme', id: 'gallery-' + n.id, 'aria-labelledby': 'h-' + n.id });
+    var head = el('div', { class: 'theme-head' });
+    var ht = el('div', { class: 'theme-title' });
+    ht.appendChild(el('span', { class: 'label' }, n.date));
+    ht.appendChild(el('h2', { id: 'h-' + n.id }, n.name));
+    head.appendChild(ht);
+    head.appendChild(el('p', {}, n.blurb));
+    sec.appendChild(head);
+    var grid = el('div', { class: 'masonry' });
+    n.photos.forEach(function (p, i) {
+      var idx = flat.length;
+      flat.push({ src: 'photos/' + p[0], alt: p[3], night: n.name, i: i + 1, of: n.photos.length });
+      var b = el('button', { type: 'button', class: 'shot', 'aria-label': 'View larger: ' + p[3] });
+      b.appendChild(el('img', { src: 'photos/' + p[0], width: p[1], height: p[2], alt: '', loading: 'lazy' }));
+      b.addEventListener('click', function () { openLB(idx, b); });
+      grid.appendChild(b);
+    });
+    sec.appendChild(grid);
+    themes.appendChild(sec);
+  });
+
+  /* lightbox */
+  var lb = document.getElementById('lightbox'), lbImg = document.getElementById('lb-img');
+  var lbCap = document.getElementById('lb-cap'), lbCount = document.getElementById('lb-count');
+  var cur = 0, opener = null;
+  function show(i) {
+    cur = (i + flat.length) % flat.length;
+    var f = flat[cur];
+    lbImg.src = f.src; lbImg.alt = f.alt;
+    lbCap.textContent = f.alt;
+    lbCount.textContent = f.night + ' · ' + f.i + ' of ' + f.of;
+  }
+  function openLB(i, from) { opener = from; show(i); lb.hidden = false; document.body.style.overflow = 'hidden'; document.getElementById('lb-close').focus(); }
+  function closeLB() { lb.hidden = true; document.body.style.overflow = ''; if (opener) opener.focus(); }
+  document.getElementById('lb-close').addEventListener('click', closeLB);
+  document.getElementById('lb-prev').addEventListener('click', function () { show(cur - 1); });
+  document.getElementById('lb-next').addEventListener('click', function () { show(cur + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('lb-stage')) closeLB(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') closeLB();
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === 'ArrowRight') show(cur + 1);
+  });
+  var tx = null;
+  lb.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) {
+    if (tx == null) return;
+    var dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+  });
+
+  /* phone menu */
+  var head = document.querySelector('.site-head');
+  var menuBtn = document.getElementById('menu-btn');
+  function setMenu(open) {
+    head.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  menuBtn.addEventListener('click', function () { setMenu(!head.classList.contains('open')); });
+  document.getElementById('site-nav').addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && head.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
+  window.addEventListener('hashchange', function () { setMenu(false); });
+
+  /* routing between the home page and the gallery */
+  var home = document.getElementById('home-view'), gal = document.getElementById('gallery-view');
+  var navG = document.getElementById('nav-gallery');
+  function route() {
+    var h = (location.hash || '').slice(1);
+    var inGallery = h === 'gallery' || h.indexOf('gallery-') === 0;
+    home.hidden = inGallery; gal.hidden = !inGallery;
+    if (inGallery) navG.setAttribute('aria-current', 'page'); else navG.removeAttribute('aria-current');
+    if (!lb.hidden) closeLB();
+    var target = h && h !== 'gallery' ? document.getElementById(h) : null;
+    if (target) target.scrollIntoView();
+    else if (inGallery || h === 'top') window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+
+  /* copy + form */
+  var btn = document.getElementById('copy-email');
+  var val = document.getElementById('email-val');
+  btn.addEventListener('click', function () {
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1800); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(val);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected';
+    };
+    try { navigator.clipboard.writeText(val.textContent).then(done, fallback); } catch (e) { fallback(); }
+  });
+  var lform = document.getElementById('list-form');
+  var lmsg = document.getElementById('list-msg');
+  var GFORM = 'https://docs.google.com/forms/d/e/1FAIpQLSeNydBGdBS4iA4X3grtlIGYrg_obBxpT0Wahkd2zspwtDiwHA/';
+  var lsubmit = document.getElementById('l-submit');
+  lform.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = lform.email.value.trim();
+    if (!/^\S+@\S+\.\S+$/.test(email)) { lmsg.textContent = 'That email looks incomplete. Check it and try again.'; lform.email.focus(); return; }
+    lmsg.textContent = '';
+    document.getElementById('list-thanks').hidden = true;
+    document.getElementById('list-fallback').hidden = true;
+    var params = new URLSearchParams();
+    params.append('entry.1881787879', lform.first.value.trim());
+    params.append('entry.1602018433', email);
+    var pref = lform.querySelector('input[name="pref"]:checked');
+    if (pref) params.append('entry.336707123', pref.value);
+    lsubmit.disabled = true; lsubmit.textContent = 'Joining…';
+    var finish = function () { lsubmit.disabled = false; lsubmit.textContent = 'Join the list'; };
+    var fallback = function () {
+      document.getElementById('list-link').href = GFORM + 'viewform?usp=pp_url&' + params.toString();
+      document.getElementById('list-fallback').hidden = false;
+      finish();
+    };
+    try {
+      fetch(GFORM + 'formResponse', { method: 'POST', mode: 'no-cors', body: params })
+        .then(function () { document.getElementById('list-thanks').hidden = false; lform.reset(); finish(); }, fallback);
+    } catch (err) { fallback(); }
+  });
+
+  var form = document.getElementById('hire-form');
+  var msg = document.getElementById('form-msg');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var first = form.first.value.trim(), email = form.email.value.trim();
+    if (!first || !form.last.value.trim()) { msg.textContent = 'Please add your first and last name.'; form.first.focus(); return; }
+    if (!/^\S+@\S+\.\S+$/.test(email)) { msg.textContent = 'That email looks incomplete. Check it and try again.'; form.email.focus(); return; }
+    msg.textContent = '';
+    if (form._honey.value) return;
+    var thanks = document.getElementById('thanks'), fb = document.getElementById('hire-fallback');
+    thanks.hidden = true; fb.hidden = true;
+    var submit = form.querySelector('button[type="submit"]');
+    submit.disabled = true; submit.textContent = 'Sending…';
+    var done = function () { submit.disabled = false; submit.textContent = 'Send inquiry'; };
+    var fail = function () { fb.hidden = false; done(); };
+    var name = first + ' ' + form.last.value.trim();
+    var payload = {
+      name: name, email: email,
+      phone: form.phone.value.trim(),
+      date: form.date.value.trim(),
+      guests: form.guests.value.trim(),
+      details: form.notes.value.trim(),
+      _subject: 'Private event inquiry from ' + name,
+      _replyto: email,
+      _template: 'table'
+    };
+    try {
+      fetch('https://formsubmit.co/ajax/operaupclose@icloud.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j && (j.success === true || j.success === 'true')) {
+          document.getElementById('thanks-name').textContent = first;
+          thanks.hidden = false; form.reset(); done();
+        } else { fail(); }
+      }, fail);
+    } catch (err) { fail(); }
+  });
+})();
+</script>
+
+</body>
+</html>
