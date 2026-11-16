@@ -1253,10 +1253,10 @@ footer { padding-block: clamp(72px, 10vw, 120px) 48px; }
 
   /* home: theme cards
      NIGHTS is in date order, oldest first. Add each new night at the bottom.
-     The home page shows six tiles: the most recent HOME_LIMIT nights plus the
+     The home page shows the six most recent nights (HOME_LIMIT) plus the
      "See the whole gallery" card. Older nights drop off the home page but
      always stay in the full gallery. */
-  var HOME_LIMIT = 5;
+  var HOME_LIMIT = 6;
   var nightsEl = document.getElementById('nights');
   NIGHTS.slice(-HOME_LIMIT).forEach(function (n) {
     var p = n.photos[0];

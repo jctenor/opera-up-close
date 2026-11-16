@@ -12,7 +12,7 @@ The whole site is one file, `index.html`, plus images in `photos/`.
 
 ## How the Past nights section works
 
-- The home page shows six tiles: the five most recent nights plus the "See the whole gallery" card.
-- When a new night is added, the oldest one drops off the home page automatically. Nothing is deleted. Every night stays in the full gallery.
+- The home page shows the six most recent nights, plus the "See the whole gallery" card.
+- Once there are more than six nights, the oldest one drops off the home page automatically. Nothing is deleted. Every night stays in the full gallery.
 - The number of nights shown on the home page is set by `HOME_LIMIT` in `index.html`.
 - The date range and photo count on the "Every night" card update on their own.
