@@ -1251,9 +1251,14 @@ footer { padding-block: clamp(72px, 10vw, 120px) 48px; }
     return n;
   }
 
-  /* home: theme cards */
+  /* home: theme cards
+     NIGHTS is in date order, oldest first. Add each new night at the bottom.
+     The home page shows the six most recent nights (HOME_LIMIT) plus the
+     "See the whole gallery" card. Older nights drop off the home page but
+     always stay in the full gallery. */
+  var HOME_LIMIT = 6;
   var nightsEl = document.getElementById('nights');
-  NIGHTS.forEach(function (n) {
+  NIGHTS.slice(-HOME_LIMIT).forEach(function (n) {
     var p = n.photos[0];
     var a = el('a', { class: 'night', href: '#gallery-' + n.id });
     var f = el('div', { class: 'frame' });
@@ -1273,7 +1278,11 @@ footer { padding-block: clamp(72px, 10vw, 120px) 48px; }
   var m2 = el('div', { class: 'meta' });
   m2.appendChild(el('h3', {}, 'Every night'));
   m2.appendChild(el('span', { class: 'count' }, total + ' photos'));
-  all.appendChild(el('span', { class: 'label' }, 'April to October 2026'));
+  var firstD = NIGHTS[0].date.split(' '), lastD = NIGHTS[NIGHTS.length - 1].date.split(' ');
+  var range = firstD[1] === lastD[1]
+    ? firstD[0] + ' to ' + lastD.join(' ')
+    : firstD.join(' ') + ' to ' + lastD.join(' ');
+  all.appendChild(el('span', { class: 'label' }, range));
   all.appendChild(m2);
   all.appendChild(el('p', {}, 'Tables, menus, songs and the people who came.'));
   nightsEl.appendChild(all);
